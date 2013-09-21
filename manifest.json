@@ -1,0 +1,13 @@
+{
+    "name": "Frog Controller",
+    "version": "0.1",
+    "permissions": [
+        "tabs"
+    ],
+    "browser_action": {
+        "default_title": "",
+        "default_icon": "app/icon.png",
+        "default_popup": "app/pane/index.html"
+    },
+    "manifest_version": 2
+}
