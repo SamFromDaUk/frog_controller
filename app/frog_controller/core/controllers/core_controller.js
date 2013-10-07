@@ -56,7 +56,7 @@ App.Controllers.Core = can.Control.extend({
             tabs: this.settings.tabs
         }));
 
-        this.container = this.element.find('.pane-container');
+        this.container = this.element.find('div.pane-container');
     },
 
     loadPane: function(tab_model) {
