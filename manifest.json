@@ -7,7 +7,9 @@
     "browser_action": {
         "default_title": "",
         "default_icon": "app/icon.png",
-        "default_popup": "app/pane/index.html"
+        "default_popup": "app/frog_controller/index.html"
     },
-    "manifest_version": 2
+    "options_page": "app/frog_controller/options.html",
+    "manifest_version": 2,
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
