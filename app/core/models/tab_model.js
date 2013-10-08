@@ -1,16 +1,39 @@
 App.Models.Tab = can.Model.extend({
     getDefaults: function() {
-        return $.Deferred().resolve(this.models([{
+        var tabs = this.models([{
             name: 'setup',
+            controller: 'Setup',
             active: true
         }, {
-            name: 'login'
+            name: 'login',
+            controller: 'Login'
         }, {
-            name: 'deployment'
+            name: 'deployment',
+            controller: 'Deployment'
         }, {
-            name: 'helpers'
-        }]));
+            name: 'helpers',
+            controller: 'Helpers'
+        }]);
+
+        return $.Deferred().resolve(tabs);
     }
 }, {
 
+});
+
+App.Models.Tab.List = can.Model.List.extend({
+
+}, {
+    match: function(attr, value) {
+        var i = 0,
+            ret = new App.Models.Tab.List([]);
+
+        for (; i < this.length; i++) {
+            if (typeof this[i][attr] !== 'undefined' && this[i][attr] === value) {
+                ret.push(this[i]);
+            }
+        }
+
+        return ret;
+    }
 });

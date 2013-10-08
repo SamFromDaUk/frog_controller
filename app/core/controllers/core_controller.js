@@ -1,5 +1,6 @@
 App.Controllers.Core = can.Control.extend({
     init: function() {
+        localStorage.setItem('frog_controller', '');
         var self = this;
 
         this.loadSettings();
@@ -17,7 +18,7 @@ App.Controllers.Core = can.Control.extend({
         this.elements.nav_deployment =  this.elements.nav.children('li[data-pane="deployment"]');
         this.elements.nav_helpers =     this.elements.nav.children('li[data-pane="helpers"]');
 
-        this.elements.pane =            this.element.find('div.pane-container');
+        this.elements.pane =            this.element.find('ul.pane-container');
         this.elements.pane_setup =      this.elements.pane.children('li[data-pane="setup"]');
         this.elements.pane_login =      this.elements.pane.children('li[data-pane="login"]');
         this.elements.pane_deployment = this.elements.pane.children('li[data-pane="deployment"]');
@@ -32,6 +33,7 @@ App.Controllers.Core = can.Control.extend({
 
         if (storage) {
             this.settings = $.parseJSON(storage);
+            this.settings.tabs = App.Models.Tab.models(this.settings.tabs);
         }
     },
 
@@ -40,19 +42,14 @@ App.Controllers.Core = can.Control.extend({
 
         App.Models.Tab.getDefaults().done(function(tabs) {
             localStorage.setItem('frog_controller', JSON.stringify({
-                tabs: tabs
+                tabs: tabs.serialize()
             }));
             self.loadSettings();
         });
     },
 
     getActiveTab: function() {
-        for (var i = 0, len = this.settings.tabs.length; i < len; i++) {
-            if (this.settings.tabs[i].active) {
-                return this.settings.tabs[i].name;
-            }
-            return null;
-        }
+        return this.settings.tabs.match('active', true)[0];
     },
 
     render: function() {
@@ -63,24 +60,35 @@ App.Controllers.Core = can.Control.extend({
         this.container = this.element.find('div.pane-container');
     },
 
-    showPane: function(tab_name) {
-        var pane = this.elements['pane_' + tab_name],
-            nav = this.elements['nav_' + tab_name];
+    showPane: function(tab) {
+        var pane = this.elements['pane_' + tab.name],
+            nav = this.elements['nav_' + tab.name];
 
-        if (pane.length && nav.length) {
-            nav.addClass('active').siblings.removeClass('active');
-            pane.addClass('in').siblings().removeClass('in');
-            pane.trigger('app.focus');
-            return;
+        if (!pane || !nav) {
+            throw new Error('There was an error loading the tab', arguments);
         }
 
-        // No pane has already been loaded. Lets make one.
+        if (!pane.length) {
+            // No pane has already been loaded. Lets make one.
+            this.elements['pane_' + tab.name] = pane = $('<li class="fade ' +tab.name+ '" />').appendTo(this.elements.pane);
+            new App.Controllers[tab.controller](pane, this.settings);
+        } else {
+            pane.trigger('app.focus');
+        }
 
+        if (pane.length && nav.length) {
+            nav.addClass('active').siblings().removeClass('active');
+            pane.addClass('in').siblings().removeClass('in');
+            return;
+        }
+    },
 
+    getTab: function(tab_name) {
+        return this.settings.tabs.match('name', tab_name)[0];
 
     },
 
     'ul.nav-tabs li click': function(el, ev) {
-        this.showPane(el.attr('data-pane'));
+        this.showPane(this.getTab(el.attr('data-pane')));
     }
 });
