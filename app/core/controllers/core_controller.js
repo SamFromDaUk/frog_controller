@@ -9,7 +9,15 @@ App.Controllers.Core = can.Control.extend({
         }
 
         this.render();
+        this.elements = {};
+        this.elements.nav = this.element.find('ul.nav-tabs');
+        this.elements.nav_setup = this.elements.nav.find('li[data-pane="setup"]');
+        this.elements.nav_login = this.elements.nav.find('li[data-pane="login"]');
+        this.elements.nav_deployment = this.elements.nav.find('li[data-pane="deployment"]');
+        this.elements.nav_helpers = this.elements.nav.find('li[data-pane="helpers"]');
+
         this.loadPane(this.getActiveTab());
+
     },
 
     loadSettings: function() {
@@ -21,8 +29,14 @@ App.Controllers.Core = can.Control.extend({
     },
 
     setDefaults: function() {
-        localStorage.setItem('frog_controller', JSON.stringify({tabs: []}));
-        this.loadSettings();
+        var self = this;
+
+        App.Models.Tab.getDefaults().done(function(tabs) {
+            localStorage.setItem('frog_controller', JSON.stringify({
+                tabs: tabs
+            }));
+            self.loadSettings();
+        });
     },
 
     getActiveTab: function() {
@@ -35,21 +49,27 @@ App.Controllers.Core = can.Control.extend({
     },
 
     render: function() {
-        console.log(this);
-        this.element.append(can.view('./core/views/core.ejs', {
+        this.element.append(can.view('//app/core/views/core.ejs', {
             tabs: this.settings.tabs
         }));
 
         this.container = this.element.find('div.pane-container');
     },
 
-    loadPane: function(tab_model) {
-        this.element.find('.nav-tabs');
+    showPane: function(tab_name) {
+        var pane = this.elements['pane_' + tab_name];
+
+        if (pane) {
+            pane.siblings().removeClass('in');
+            pane.addClass('in');
+            pane.trigger('app.focus');
+            return;
+        }
 
 
     },
 
     '.nav-tabs li click': function(el, ev) {
-        this.loadPane(el.children('a').text());
+        this.showPane(el.attr('data-pane'));
     }
 });
