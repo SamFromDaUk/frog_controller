@@ -6,10 +6,10 @@
     ],
     "browser_action": {
         "default_title": "",
-        "default_icon": "app/icon.png",
-        "default_popup": "app/frog_controller/index.html"
+        "default_icon": "icon.png",
+        "default_popup": "app/index.html"
     },
-    "options_page": "app/frog_controller/options.html",
+    "options_page": "app/options.html",
     "manifest_version": 2,
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
