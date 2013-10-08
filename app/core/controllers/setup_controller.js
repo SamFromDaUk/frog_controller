@@ -5,5 +5,9 @@ App.Controllers.Setup = can.Control.extend({
 
     'app.focus': function() {
 
+    },
+
+    'save.pane': function() {
+
     }
 });

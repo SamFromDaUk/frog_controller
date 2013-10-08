@@ -33,14 +33,21 @@ App.Controllers.Core = can.Control.extend({
 
         if (storage) {
             this.settings = $.parseJSON(storage);
-            this.settings.tabs = App.Models.Tab.models(this.settings.tabs);
+
+            if (this.settings.tabs) {
+                this.settings.tabs = App.Models.Tab.models(this.settings.tabs);
+            }
+
+            if (this.settings.deployment) {
+                this.settings.deployment = App.Models.Deployment.models(this.settings.deployment);
+            }
         }
     },
 
     setDefaults: function() {
         var self = this;
 
-        App.Models.Tab.getDefaults().done(function(tabs) {
+        App.Models.Tab.findAll().done(function(tabs) {
             localStorage.setItem('frog_controller', JSON.stringify({
                 tabs: tabs.serialize()
             }));
@@ -58,6 +65,10 @@ App.Controllers.Core = can.Control.extend({
         }));
 
         this.container = this.element.find('div.pane-container');
+    },
+
+    'app.save': function(el, ev) {
+        this.elements.pane.children().trigger('save.pane');
     },
 
     showPane: function(tab) {

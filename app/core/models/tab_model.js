@@ -1,21 +1,19 @@
 App.Models.Tab = can.Model.extend({
-    getDefaults: function() {
-        var tabs = this.models([{
+    findAll: function() {
+        return $.Deferred().resolve(this.models([{
             name: 'setup',
-            controller: 'Setup',
-            active: true
+            controller: 'Setup'
         }, {
             name: 'login',
             controller: 'Login'
         }, {
             name: 'deployment',
-            controller: 'Deployment'
+            controller: 'Deployment',
+            active: true
         }, {
             name: 'helpers',
             controller: 'Helpers'
-        }]);
-
-        return $.Deferred().resolve(tabs);
+        }]));
     }
 }, {
 
@@ -35,5 +33,9 @@ App.Models.Tab.List = can.Model.List.extend({
         }
 
         return ret;
+    },
+
+    save: function() {
+        return this.serialize();
     }
 });
