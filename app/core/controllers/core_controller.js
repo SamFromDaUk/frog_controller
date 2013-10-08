@@ -9,14 +9,21 @@ App.Controllers.Core = can.Control.extend({
         }
 
         this.render();
-        this.elements = {};
-        this.elements.nav = this.element.find('ul.nav-tabs');
-        this.elements.nav_setup = this.elements.nav.find('li[data-pane="setup"]');
-        this.elements.nav_login = this.elements.nav.find('li[data-pane="login"]');
-        this.elements.nav_deployment = this.elements.nav.find('li[data-pane="deployment"]');
-        this.elements.nav_helpers = this.elements.nav.find('li[data-pane="helpers"]');
 
-        this.loadPane(this.getActiveTab());
+        this.elements = {};
+        this.elements.nav =             this.element.find('ul.nav-tabs');
+        this.elements.nav_setup =       this.elements.nav.children('li[data-pane="setup"]');
+        this.elements.nav_login =       this.elements.nav.children('li[data-pane="login"]');
+        this.elements.nav_deployment =  this.elements.nav.children('li[data-pane="deployment"]');
+        this.elements.nav_helpers =     this.elements.nav.children('li[data-pane="helpers"]');
+
+        this.elements.pane =            this.element.find('div.pane-container');
+        this.elements.pane_setup =      this.elements.pane.children('li[data-pane="setup"]');
+        this.elements.pane_login =      this.elements.pane.children('li[data-pane="login"]');
+        this.elements.pane_deployment = this.elements.pane.children('li[data-pane="deployment"]');
+        this.elements.pane_helpers =    this.elements.pane.children('li[data-pane="helpers"]');
+
+        this.showPane(this.getActiveTab());
 
     },
 
@@ -57,19 +64,23 @@ App.Controllers.Core = can.Control.extend({
     },
 
     showPane: function(tab_name) {
-        var pane = this.elements['pane_' + tab_name];
+        var pane = this.elements['pane_' + tab_name],
+            nav = this.elements['nav_' + tab_name];
 
-        if (pane) {
-            pane.siblings().removeClass('in');
-            pane.addClass('in');
+        if (pane.length && nav.length) {
+            nav.addClass('active').siblings.removeClass('active');
+            pane.addClass('in').siblings().removeClass('in');
             pane.trigger('app.focus');
             return;
         }
 
+        // No pane has already been loaded. Lets make one.
+
+
 
     },
 
-    '.nav-tabs li click': function(el, ev) {
+    'ul.nav-tabs li click': function(el, ev) {
         this.showPane(el.attr('data-pane'));
     }
 });
