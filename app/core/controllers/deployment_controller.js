@@ -32,7 +32,7 @@ App.Controllers.Deployment = can.Control.extend({
     },
 
     renderOptions: function() {
-        this.elements.options.html(can.view('//app/core/views/deployment_options.ejs', this.options))
+        this.elements.options.html(can.view('//app/core/views/deployment_options.ejs', this.options));
     },
 
     getDeployments: function() {

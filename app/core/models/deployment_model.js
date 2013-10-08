@@ -47,8 +47,7 @@ App.Models.Deployment = can.Model.extend({
     },
 }, {
     getUrl: function() {
-        var base = 'http://dev-samw.frogosdev.co.uk/frogos/',
-            file = 'lib/_upgrade.php',
+        var url = App.Models.Url.getUrl('upgrade'),
             params = {},
             flags = App.Models.Deployment.flags;
 
@@ -62,7 +61,7 @@ App.Models.Deployment = can.Model.extend({
 
         $.extend(true, params, this.query.serialize());
 
-        return base + file + '?' + $.param(params);
+        return url + '?' + $.param(params);
     }
 });
 
