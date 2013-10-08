@@ -1,0 +1,12 @@
+<form class="form-horizontal" role="form">
+    <% for (var i = 0; i < deployments.length; i++) { %>
+        <div class="form-group">
+            <div class="col-lg-9">
+                <input class="form-control" disabled="disabled" type="text" value="<%= deployments[i].getUrl() %>" />
+            </div>
+            <span class="col-lg-3 control-label">
+                <button class="btn btn-primary btn-sm"><%= deployments[i].deploymentName %></button>
+            </span>
+        </div>
+    <% } %>
+</form>

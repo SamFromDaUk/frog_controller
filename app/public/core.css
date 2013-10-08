@@ -29,3 +29,20 @@ body > div {
     left: 0;
     padding: 10px;
 }
+
+li.deployment span.control-label {
+    padding-top: 3px;
+    text-align: left;
+}
+
+li.deployment input.form-control {
+    font-size: 10px;
+}
+
+li.deployment div.options button.btn-success .glyphicon-ok-circle {
+    display: none;
+}
+
+li.deployment div.options button.btn-warning .glyphicon-ok-sign {
+    display: none;
+}

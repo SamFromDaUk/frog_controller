@@ -1,0 +1,23 @@
+<div class="options">
+    <button data-action="reset_db" class="btn <%= flags.reset_db ? 'btn-success' : 'btn-warning' %>">
+        <span class="glyphicon glyphicon-ok-sign"></span>
+        <span class="glyphicon glyphicon-ok-circle"></span>
+         reset_db
+     </button>
+    <button data-action="log" class="btn <%= flags.log ? 'btn-success' : 'btn-warning' %>">
+        <span class="glyphicon glyphicon-ok-sign"></span>
+        <span class="glyphicon glyphicon-ok-circle"></span>
+         log
+    </button>
+    <button data-action="initial"class="btn <%= flags.initial ? 'btn-success' : 'btn-warning' %>" title="Run the initial script after upgrading the DB">
+        <span class="glyphicon glyphicon-ok-sign"></span>
+        <span class="glyphicon glyphicon-ok-circle"></span>
+         initial
+    </button>
+    <button data-action="version" class="btn <%= flags.version ? 'btn-success' : 'btn-warning' %> version" title="Specify a specific version to use">
+        <span class="glyphicon glyphicon-ok-sign"></span>
+        <span class="glyphicon glyphicon-ok-circle"></span>
+         v
+    </button>
+    <input class="version-input" type="text" value="<% if (flags.v) { %><%= flags.v %><% } %>" />
+</div>
