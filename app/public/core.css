@@ -30,6 +30,10 @@ body > div {
     padding: 10px;
 }
 
+.pane-container > li.in {
+    z-index: 2;
+}
+
 li.deployment span.control-label {
     padding-top: 3px;
 }
