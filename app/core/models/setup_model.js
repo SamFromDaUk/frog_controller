@@ -6,13 +6,17 @@ App.Models.Url = can.Model.extend({
         };
 
         if (map[type]) {
-            return this.active + map[type];
+            return this.getActive() + map[type];
         }
 
         return this.active;
     },
 
-    active: 'http://dev-samw.frogosdev.co.uk/frogos/'
+    active: '',
+
+    getActive: function() {
+        return this.active;
+    }
 }, {
 
 });

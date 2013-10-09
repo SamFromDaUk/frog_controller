@@ -10,6 +10,7 @@ steal(
         Views: {}
     };
 }).then(
+    '//app/public/libs/bootstrap.min.js',
     '//app/core/controllers/controllers',
     '//app/core/models/models',
     '//app/core/views/views'
