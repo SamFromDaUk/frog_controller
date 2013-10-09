@@ -2,14 +2,14 @@ App.Models.Tab = can.Model.extend({
     findAll: function() {
         return $.Deferred().resolve(this.models([{
             name: 'setup',
-            controller: 'Setup'
+            controller: 'Setup',
+            active: true
         }, {
             name: 'login',
             controller: 'Login'
         }, {
             name: 'deployment',
-            controller: 'Deployment',
-            active: true
+            controller: 'Deployment'
         }, {
             name: 'helpers',
             controller: 'Helpers'

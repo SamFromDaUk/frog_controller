@@ -1,15 +1,15 @@
 App.Models.Url = can.Model.extend({
     getUrl: function(type) {
         var map = {
-            'upgrade': 'lib/_upgrade.php'
+            'upgrade': 'lib/_upgrade.php',
+            'setup': 'setup/initial.php'
         };
 
-        switch(type) {
-            case 'upgrade':
-                return this.active + map[type];
-            default:
-                return this.active;
+        if (map[type]) {
+            return this.active + map[type];
         }
+
+        return this.active;
     },
 
     active: 'http://dev-samw.frogosdev.co.uk/frogos/'
