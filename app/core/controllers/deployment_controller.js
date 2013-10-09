@@ -2,7 +2,7 @@ App.Controllers.Deployment = can.Control.extend({
     init: function() {
         var self = this;
 
-        this.options.flags = App.Models.Deployment.flags;
+        this.load();
         this.renderContainer();
 
         this.getDeployments().done(function() {
@@ -20,7 +20,13 @@ App.Controllers.Deployment = can.Control.extend({
     },
 
     save: function() {
+        localStorage.setItem('frog_controller_deployment', JSON.stringify(this.options.flags));
+    },
 
+    load: function() {
+        var storage = localStorage.getItem('frog_controller_deployment');
+
+        this.options.flags = App.Models.Deployment.flags = storage ? JSON.parse(storage) : App.Models.Deployment.flags;
     },
 
     renderContainer: function() {
@@ -63,10 +69,12 @@ App.Controllers.Deployment = can.Control.extend({
         App.Models.Deployment.setFlag(action, enabled);
         this.renderDeployments();
         this.renderOptions();
+        this.save();
     },
 
     'div.options input.version-input keyup': function(el, ev) {
         App.Models.Deployment.setFlag('v', el.val());
         this.renderDeployments();
+        this.save();
     }
 });
