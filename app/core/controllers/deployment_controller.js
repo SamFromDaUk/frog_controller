@@ -16,6 +16,10 @@ App.Controllers.Deployment = can.Control.extend({
     },
 
     'save.pane': function() {
+        this.save();
+    },
+
+    save: function() {
 
     },
 
@@ -58,6 +62,7 @@ App.Controllers.Deployment = can.Control.extend({
         el.toggleClass('btn-success btn-warning');
         App.Models.Deployment.setFlag(action, enabled);
         this.renderDeployments();
+        this.renderOptions();
     },
 
     'div.options input.version-input keyup': function(el, ev) {

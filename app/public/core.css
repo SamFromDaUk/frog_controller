@@ -32,7 +32,6 @@ body > div {
 
 li.deployment span.control-label {
     padding-top: 3px;
-    text-align: left;
 }
 
 li.deployment input.form-control {
