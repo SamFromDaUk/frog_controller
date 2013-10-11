@@ -14,6 +14,12 @@ App.Models.Url = can.Model.extend({
 
     active: '',
 
+    findAll: function() {
+        return $.Deferred(function(obj) {
+
+        });
+    },
+
     getActive: function() {
         return this.active;
     }
