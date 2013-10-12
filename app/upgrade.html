@@ -5,6 +5,20 @@
     <title>Time to upgrade...</title>
     <script src="../can/lib/jquery.1.9.1.js"></script>
     <script src="../app/public/content-scripts/upgrade.js"></script>
+    <style>
+        .upgrade {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        }
+
+        .initial {
+            position: absolute; top: 0; left: 51%; right: 0; bottom: 0; display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="upgrade"></div>
