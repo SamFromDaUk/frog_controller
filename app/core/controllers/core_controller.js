@@ -24,6 +24,10 @@ App.Controllers.Core = can.Control.extend({
         this.elements.pane_deployment = this.elements.pane.children('li[data-pane="deployment"]');
         this.elements.pane_helpers =    this.elements.pane.children('li[data-pane="helpers"]');
 
+        // Required panes
+        this.showPane(this.settings.tabs.match('name', 'setup')[0], true);
+
+        // Saved active tab
         this.showPane(this.getActiveTab());
 
     },
@@ -71,7 +75,7 @@ App.Controllers.Core = can.Control.extend({
         this.elements.pane.children().trigger('save.pane');
     },
 
-    showPane: function(tab) {
+    showPane: function(tab, isHidden) {
         var pane = this.elements['pane_' + tab.name],
             nav = this.elements['nav_' + tab.name];
 
@@ -83,11 +87,11 @@ App.Controllers.Core = can.Control.extend({
             // No pane has already been loaded. Lets make one.
             this.elements['pane_' + tab.attr('name')] = pane = $('<li class="fade ' +tab.attr('name')+ '" />').appendTo(this.elements.pane);
             new App.Controllers[tab.attr('controller')](pane, this.settings);
-        } else {
+        } else if(!isHidden) {
             pane.trigger('app.focus');
         }
 
-        if (pane.length && nav.length) {
+        if (pane.length && nav.length && !isHidden) {
             nav.addClass('active').siblings().removeClass('active');
             pane.addClass('in').siblings().removeClass('in');
             this.setActivePane(tab.attr('name'));

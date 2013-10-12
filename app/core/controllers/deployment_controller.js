@@ -12,7 +12,7 @@ App.Controllers.Deployment = can.Control.extend({
     },
 
     'app.focus': function() {
-
+        this.renderDeployments();
     },
 
     'save.pane': function() {
