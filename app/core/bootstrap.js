@@ -20,6 +20,11 @@ steal(
     window.wipe = function() {
         localStorage.setItem('frog_controller', '');
     };
+
+    window.uuid = function() {
+        return +(new Date());
+    };
+
     //dev helpers - END
 
     $('body').append('<div />');
