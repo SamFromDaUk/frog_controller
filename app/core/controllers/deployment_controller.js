@@ -76,5 +76,9 @@ App.Controllers.Deployment = can.Control.extend({
         App.Models.Deployment.setFlag('v', el.val());
         this.renderDeployments();
         this.save();
+    },
+
+    'div.deployment .btn-primary click': function(el, ev) {
+        // time to roll.
     }
 });

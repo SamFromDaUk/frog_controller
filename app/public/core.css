@@ -34,8 +34,8 @@ body > div {
     z-index: 2;
 }
 
-li.deployment span.control-label {
-    padding-top: 3px;
+li.deployment div.deployment {
+    padding-bottom: 10px;
 }
 
 li.deployment input.form-control {
