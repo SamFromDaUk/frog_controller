@@ -24,7 +24,8 @@ App.Models.Url = can.Model.extend({
             storage = localStorage.getItem('frog_controller_setup');
 
             if (!storage) {
-                obj.resolve(App.Models.Url.models([]));
+                self._models = App.Models.Url.models([]);
+                obj.resolve(self._models);
                 return;
             }
 

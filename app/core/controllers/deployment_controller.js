@@ -79,6 +79,26 @@ App.Controllers.Deployment = can.Control.extend({
     },
 
     'div.deployment .btn-primary click': function(el, ev) {
+        var self = this,
+            deployment = el.closest('.deployment').data('model'),
+            config = {
+                upgrade: deployment.getUrl('upgrade'),
+                initial: deployment.getUrl('initial'),
+                flags: this.options.flags
+            };
+
+        ev.preventDefault();
         // time to roll.
+
+        chrome.tabs.create({
+            url: 'app/upgrade.html'
+        }, function(tab) {
+            console.log(tab);
+            chrome.tabs.query({
+                windowId: tab.id
+            }, function(tabs) {
+                chrome.tabs.sendMessage(tab.id, config);
+            });
+        });
     }
 });

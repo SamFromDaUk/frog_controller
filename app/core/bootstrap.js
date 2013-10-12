@@ -19,10 +19,10 @@ steal(
     //dev helpers - START
     window.wipe = function() {
         localStorage.setItem('frog_controller', '');
-    };
-
-    window.uuid = function() {
-        return +(new Date());
+        localStorage.setItem('frog_controller_setup', '');
+        localStorage.setItem('frog_controller_login', '');
+        localStorage.setItem('frog_controller_deployment', '');
+        localStorage.setItem('frog_controller_helpers', '');
     };
 
     //dev helpers - END

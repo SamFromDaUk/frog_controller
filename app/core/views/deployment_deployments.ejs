@@ -1,10 +1,10 @@
 <form class="form-horizontal" role="form">
-    <% for (var i = 0; i < deployments.length; i++) { %>
-        <div class="input-group deployment">
-            <input class="form-control" disabled="disabled" type="text" value="<%= deployments[i].getUrl('upgrade') %>" />
+    <% deployments.each(function(deployment, index) { %>
+        <div <%= (el) -> el.data( 'model', deployment ) %> class="input-group deployment">
+            <input class="form-control" disabled="disabled" type="text" value="<%= deployment.getUrl('upgrade') %>" />
             <span class="input-group-btn">
-                <button class="btn btn-primary"><%= deployments[i].deploymentName %></button>
+                <button class="btn btn-primary"><%= deployment.deploymentName %></button>
             </span>
         </div>
-    <% } %>
+    <% }) %>
 </form>
