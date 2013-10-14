@@ -2,15 +2,8 @@ var config,
     connection,
     app;
 
-chrome.runtime.onMessage.addListener(function(port) {
-    console.log('receiving', port);
-    connection = port;
-
-    connection.onMessage.addListener(function(configuration) {
-        config = configuration;
-
-        app.initUpgrade();
-    });
+chrome.runtime.onMessage.addListener(function(configuration) {
+    console.log('receiving', configuration);
 });
 
 app = {
