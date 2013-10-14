@@ -1,16 +1,29 @@
 var config,
+    connection,
     app;
+
+chrome.runtime.onMessage.addListener(function(port) {
+    console.log('receiving', port);
+    connection = port;
+
+    connection.onMessage.addListener(function(configuration) {
+        config = configuration;
+
+        app.initUpgrade();
+    });
+});
 
 app = {
     initUpgrade: function() {
         window.title = 'DB Upgrading';
 
         if (config.flags.initial) {
-            $('.upgrade').css('right', '51%');
+            $('.upgrade').css('right', '50%');
             $('.initial').show();
         }
 
-        $('.upgrade').html('<iframe src="'+ config.upgrade +'"></iframe>');
+        // $('.upgrade').html('<iframe src="'+ config.upgrade +'"></iframe>');
+        $('.upgrade').html('<iframe src="'+ 'http://www.bbc.co.uk' +'"></iframe>');
 
         $('.upgrade iframe').load(function() {
 
@@ -29,12 +42,3 @@ app = {
         });
     }
 };
-
-$(function() {
-    chrome.runtime.onMessage.addListener(function(configuration) {
-        config = configuration;
-        console.log('Config', config);
-
-        app.initUpgrade();
-    });
-});

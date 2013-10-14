@@ -93,12 +93,8 @@ App.Controllers.Deployment = can.Control.extend({
         chrome.tabs.create({
             url: 'app/upgrade.html'
         }, function(tab) {
-            console.log(tab);
-            chrome.tabs.query({
-                windowId: tab.id
-            }, function(tabs) {
-                chrome.tabs.sendMessage(tab.id, config);
-            });
+            console.log('posting', tab.id, config);
+            chrome.extention.sendMessage(tab.id, config);
         });
     }
 });
